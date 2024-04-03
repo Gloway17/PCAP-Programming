@@ -55,17 +55,6 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 
     if (ntohs(eth->ether_type) == 0x0800) { // 0x0800 is IP type
         struct ipheader * ip = (struct ipheader *)(packet + sizeof(struct ethheader)); 
-
-        // printf("Ethernet Header\n");
-        // printf("src mac : %s\n", inet_ntoa(eth->ether_shost));
-        // printf("dst mac : %s\n", inet_ntoa(eth->ether_dhost));
-        // printf("IP Header\n");
-        // printf("src ip : %s\n", inet_ntoa(ip->iph_sourceip));
-        // printf("dst ip : %s\n", inet_ntoa(ip->iph_destip));
-        // printf("TCP Header\n");
-        // printf("src port : %s\n");
-        // printf("dst port : %s\n");
-        // printf("Message\n");
     
         if (ip->iph_protocol == IPPROTO_TCP) {
             struct tcpheader *tcp = (struct tcpheader*)(packet + sizeof(struct ethheader) + ip->iph_ihl);
