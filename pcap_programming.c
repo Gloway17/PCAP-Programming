@@ -67,21 +67,23 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
             printf("\tsrc ip : %s\n", inet_ntoa(ip->iph_sourceip));
             printf("\tdst ip : %s\n", inet_ntoa(ip->iph_destip));
             printf("TCP Header\n");
+            //printf("\tsrc port : %d\n", tcp->tcp_sport);
             printf("\tsrc port : %d\n", ntohs(tcp->tcp_sport));
+            //printf("\tsrc port : %d\n", tcp->tcp_dport);
             printf("\tdst port : %d\n", ntohs(tcp->tcp_dport));
+
 
             int tcp_header_len = TH_OFF(tcp) * 4;
 
-            // Extract the payload (message)
             char *payload = (char *)(packet + sizeof(struct ethheader) + ip->iph_ihl + tcp_header_len);
 
-            // Calculate the payload length
             int payload_length = header->len - sizeof(struct ethheader) - ip->iph_ihl - tcp_header_len;
 
-            // Print the message data
             printf("Message\n\t");
-            for (int i = 0; i < payload_length; i++) {
-                printf("%c", isprint(payload[i]) ? payload[i] : '.'); // Print printable characters, otherwise '.'
+
+            int print_len = payload_length > 100 ? 100 : payload_length; // 출력길이 제한
+            for (int i = 0; i < print_len; i++) {
+                printf("%c", isprint(payload[i]) ? payload[i] : '.');
             }
             printf("\n\n\n");
         }
@@ -92,7 +94,7 @@ int main() {
     pcap_t *handle;
     char errbuf[PCAP_ERRBUF_SIZE];
     struct bpf_program fp;
-    char filter_exp[] = "tcp";
+    char filter_exp[] = "";
     bpf_u_int32 net;
 
     // Step 1: Open live pcap session on NIC with name enp0s3
