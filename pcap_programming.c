@@ -85,7 +85,7 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
             for (int i = 0; i < print_len; i++) {
                 printf("%c", isprint(payload[i]) ? payload[i] : '.');
             }
-            printf("\n\n\n");
+            printf("\n\n");
         }
     }
 }
