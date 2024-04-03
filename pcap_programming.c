@@ -8,7 +8,7 @@
 struct ethheader {
     u_char  ether_dhost[6];    /* destination host address */
     u_char  ether_shost[6];    /* source host address */
-    u_short ether_type;                     /* IP? ARP? RARP? etc */
+    u_short ether_type;        /* IP? ARP? RARP? etc */
 };
 
 /* IP Header */
