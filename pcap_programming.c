@@ -94,7 +94,7 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
             for (int i = 0; i < payload_length; i++) {
                 printf("%c", isprint(payload[i]) ? payload[i] : '.'); // Print printable characters, otherwise '.'
             }
-            printf("\n\n");
+            printf("\n\n\n");
         }
     }
 }
